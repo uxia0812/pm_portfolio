@@ -1,7 +1,7 @@
 import React from "react";
 
 const PdfViewer: React.FC = () => {
-  const pdfUrl = "/pdf/pm_portfolio.pdf";
+  const pdfUrl = "/pdf/pm_portfolio.pdf#toolbar=0&zoom=page-fit";
 
   return (
     <div style={{ width: "100vw", height: "100vh", margin: 0, padding: 0 }}>
