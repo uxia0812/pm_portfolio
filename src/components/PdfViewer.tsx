@@ -123,100 +123,114 @@ const PdfViewer: React.FC = () => {
       margin: 0, 
       padding: 0,
       overflow: "hidden",
-      position: "relative"
+      position: "relative",
+      display: "flex",
+      flexDirection: "column"
     }}>
       
-       {/* 모바일에서 뷰어 선택 및 다운로드 옵션 */}
-       {isMobile && (
-         <div style={{
-           position: "absolute",
-           top: "16px",
-           right: "16px",
-           zIndex: 1000,
-           background: "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.95) 100%)",
-           borderRadius: "16px",
-           padding: "12px 16px",
-           boxShadow: "0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08)",
-           backdropFilter: "blur(10px)",
-           border: "1px solid rgba(255,255,255,0.2)",
-           display: "flex",
-           flexDirection: "column",
-           gap: "8px",
-           minWidth: "200px"
-         }}>
-           <div style={{
-             fontSize: "14px",
-             fontWeight: "600",
-             color: "#1f2937",
-             marginBottom: "4px"
-           }}>
-             📱 PDF 뷰어
-           </div>
-           
-           <select 
-             value={viewMethod} 
-             onChange={(e) => setViewMethod(e.target.value as 'iframe' | 'object' | 'embed')}
-             style={{
-               padding: "8px 12px",
-               fontSize: "13px",
-               border: "1px solid #e5e7eb",
-               borderRadius: "12px",
-               background: "white",
-               color: "#374151",
-               outline: "none",
-               cursor: "pointer",
-               transition: "all 0.2s ease",
-               boxShadow: "0 1px 3px rgba(0,0,0,0.1)"
-             }}
-             onFocus={(e) => {
-               e.target.style.borderColor = "#3b82f6";
-               e.target.style.boxShadow = "0 0 0 3px rgba(59, 130, 246, 0.1)";
-             }}
-             onBlur={(e) => {
-               e.target.style.borderColor = "#e5e7eb";
-               e.target.style.boxShadow = "0 1px 3px rgba(0,0,0,0.1)";
-             }}
-           >
-             <option value="object">📄 Object 뷰어</option>
-             <option value="iframe">🖼️ Iframe 뷰어</option>
-             <option value="embed">📋 Embed 뷰어</option>
-           </select>
-           
-           <button
-             onClick={handleMobileDownload}
-             style={{
-               background: "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)",
-               color: "white",
-               border: "none",
-               padding: "10px 16px",
-               borderRadius: "12px",
-               fontSize: "13px",
-               fontWeight: "600",
-               cursor: "pointer",
-               transition: "all 0.2s ease",
-               boxShadow: "0 4px 12px rgba(59, 130, 246, 0.3)",
-               display: "flex",
-               alignItems: "center",
-               justifyContent: "center",
-               gap: "6px"
-             }}
-             onMouseOver={(e) => {
-               e.currentTarget.style.transform = "translateY(-1px)";
-               e.currentTarget.style.boxShadow = "0 6px 16px rgba(59, 130, 246, 0.4)";
-             }}
-             onMouseOut={(e) => {
-               e.currentTarget.style.transform = "translateY(0)";
-               e.currentTarget.style.boxShadow = "0 4px 12px rgba(59, 130, 246, 0.3)";
-             }}
-           >
-             <span>📥</span>
-             <span>PDF 다운로드</span>
-           </button>
-         </div>
-       )}
+      {/* 모바일 헤더 */}
+      {isMobile && (
+        <div style={{
+          background: "linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.98) 100%)",
+          backdropFilter: "blur(20px)",
+          borderBottom: "1px solid rgba(0,0,0,0.08)",
+          padding: "12px 16px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+          zIndex: 1000,
+          minHeight: "60px"
+        }}>
+          <div style={{
+            fontSize: "16px",
+            fontWeight: "700",
+            color: "#1f2937",
+            display: "flex",
+            alignItems: "center",
+            gap: "8px"
+          }}>
+            <span>📱</span>
+            <span>PM Portfolio</span>
+          </div>
+          
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "12px"
+          }}>
+            <select 
+              value={viewMethod} 
+              onChange={(e) => setViewMethod(e.target.value as 'iframe' | 'object' | 'embed')}
+              style={{
+                padding: "8px 12px",
+                fontSize: "13px",
+                border: "1px solid #e5e7eb",
+                borderRadius: "12px",
+                background: "white",
+                color: "#374151",
+                outline: "none",
+                cursor: "pointer",
+                transition: "all 0.2s ease",
+                boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+                minWidth: "120px"
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = "#3b82f6";
+                e.target.style.boxShadow = "0 0 0 3px rgba(59, 130, 246, 0.1)";
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = "#e5e7eb";
+                e.target.style.boxShadow = "0 1px 3px rgba(0,0,0,0.1)";
+              }}
+            >
+              <option value="object">📄 Object</option>
+              <option value="iframe">🖼️ Iframe</option>
+              <option value="embed">📋 Embed</option>
+            </select>
+            
+            <button
+              onClick={handleMobileDownload}
+              style={{
+                background: "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)",
+                color: "white",
+                border: "none",
+                padding: "8px 12px",
+                borderRadius: "12px",
+                fontSize: "12px",
+                fontWeight: "600",
+                cursor: "pointer",
+                transition: "all 0.2s ease",
+                boxShadow: "0 2px 8px rgba(59, 130, 246, 0.3)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "4px"
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.transform = "translateY(-1px)";
+                e.currentTarget.style.boxShadow = "0 4px 12px rgba(59, 130, 246, 0.4)";
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "0 2px 8px rgba(59, 130, 246, 0.3)";
+              }}
+            >
+              <span>📥</span>
+              <span>다운로드</span>
+            </button>
+          </div>
+        </div>
+      )}
 
-      {/* PDF 뷰어 렌더링 */}
-      {renderViewer()}
+      {/* PDF 뷰어 컨테이너 */}
+      <div style={{
+        flex: 1,
+        position: "relative",
+        height: isMobile ? "calc(100vh - 60px)" : "100vh"
+      }}>
+        {renderViewer()}
+      </div>
 
        {/* 로딩/오류 시 대체 메시지 */}
        {isMobile && (
@@ -237,7 +251,10 @@ const PdfViewer: React.FC = () => {
          }}>
            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "6px" }}>
              <span>💡</span>
-             <span>PDF가 잘 안 보이시나요? 위 버튼으로 다운로드하거나 다른 뷰어를 선택해보세요.</span>
+             <span>
+              PDF가 잘 안 보이시나요? <br />
+              다운로드하거나 다른 뷰어를 선택해보세요.
+            </span>
            </div>
          </div>
        )}
