@@ -17,8 +17,8 @@ const PdfViewer: React.FC = () => {
 
   const getPdfUrl = () => {
     if (isMobile) {
-      // 모바일: 전체 문서 보기 + 스크롤 가능
-      return `${pdfUrl}#toolbar=0&navpanes=0&zoom=page-width&scrollbar=1&view=FitV`;
+      // 모바일: 작은 줌으로 전체 문서 보기
+      return `${pdfUrl}#toolbar=0&navpanes=0&zoom=50&scrollbar=1&view=FitV&pagemode=none`;
     } else {
       // 데스크톱: 기본 설정
       return `${pdfUrl}#toolbar=0&zoom=page-fit`;
@@ -31,14 +31,13 @@ const PdfViewer: React.FC = () => {
       height: "100vh", 
       margin: 0, 
       padding: 0,
-      overflow: isMobile ? "auto" : "hidden"
+      overflow: "hidden"
     }}>
       <iframe
         src={getPdfUrl()}
         style={{
           width: "100%",
-          height: isMobile ? "auto" : "100%",
-          minHeight: isMobile ? "100vh" : "100%",
+          height: "100%",
           border: "none",
           display: "block"
         }}
