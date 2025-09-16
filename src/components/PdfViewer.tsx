@@ -17,8 +17,8 @@ const PdfViewer: React.FC = () => {
 
   const getPdfUrl = () => {
     if (isMobile) {
-      // 모바일: 고정 줌 + 툴바 숨김
-      return `${pdfUrl}#toolbar=0&navpanes=0&zoom=50&view=Fit`;
+      // 모바일: 페이지에 맞춤 + 툴바 숨김
+      return `${pdfUrl}#toolbar=0&navpanes=0&zoom=page-width&view=FitH`;
     } else {
       // 데스크톱: 기본 설정
       return `${pdfUrl}#toolbar=0&zoom=page-fit`;
@@ -36,11 +36,10 @@ const PdfViewer: React.FC = () => {
       <iframe
         src={getPdfUrl()}
         style={{
-          width: isMobile ? "200%" : "100%",    // 모바일에서 iframe을 크게 만들고
-          height: isMobile ? "200%" : "100%",   // 높이도 크게 만든 다음
+          width: "100%",
+          height: "100%",
           border: "none",
-          transform: isMobile ? "scale(0.5)" : "scale(1)", // 50%로 축소
-          transformOrigin: "0 0",  // 좌상단 기준
+          display: "block"
         }}
         title="PM Portfolio PDF"
       />
