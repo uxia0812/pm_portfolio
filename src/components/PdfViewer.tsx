@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 const PdfViewer: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [viewMethod, setViewMethod] = useState<'iframe' | 'object' | 'embed'>('iframe');
+  const [showTip, setShowTip] = useState(true);
   const pdfUrl = "/pdf/pm_portfolio.pdf";
 
   useEffect(() => {
@@ -233,7 +234,7 @@ const PdfViewer: React.FC = () => {
       </div>
 
        {/* 로딩/오류 시 대체 메시지 */}
-       {isMobile && (
+       {isMobile && showTip && (
          <div style={{
            position: "absolute",
            bottom: "16px",
@@ -249,12 +250,49 @@ const PdfViewer: React.FC = () => {
            backdropFilter: "blur(10px)",
            border: "1px solid rgba(255,255,255,0.2)"
          }}>
+           <button
+             onClick={() => setShowTip(false)}
+             style={{
+               position: "absolute",
+               top: "8px",
+               right: "8px",
+               background: "rgba(0,0,0,0.1)",
+               border: "none",
+               borderRadius: "50%",
+               width: "24px",
+               height: "24px",
+               minWidth: "24px",
+               minHeight: "24px",
+               maxWidth: "24px",
+               maxHeight: "24px",
+               display: "flex",
+               alignItems: "center",
+               justifyContent: "center",
+               cursor: "pointer",
+               fontSize: "14px",
+               color: "#6b7280",
+               transition: "all 0.2s ease",
+               flexShrink: 0,
+               padding: 0,
+               margin: 0
+             }}
+             onMouseOver={(e) => {
+               e.currentTarget.style.background = "rgba(0,0,0,0.2)";
+               e.currentTarget.style.color = "#374151";
+             }}
+             onMouseOut={(e) => {
+               e.currentTarget.style.background = "rgba(0,0,0,0.1)";
+               e.currentTarget.style.color = "#6b7280";
+             }}
+           >
+             ✕
+           </button>
            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "6px" }}>
              <span>💡</span>
              <span>
-              PDF가 잘 안 보이시나요? <br />
-              다운로드하거나 다른 뷰어를 선택해보세요.
-            </span>
+               PDF가 잘 안 보이시나요? <br />
+               다운로드하거나 다른 뷰어를 선택해보세요.
+             </span>
            </div>
          </div>
        )}
